@@ -1,0 +1,11 @@
+---
+- name: Download ANM install file
+  get_url:
+    url: https://raw.githubusercontent.com/anujdatar/anm/main/install.sh
+    dest: /tmp/anm_install.sh
+    mode: "0755"
+  register: download_result
+
+- name: Install ANM
+  shell: /tmp/anm_install.sh
+  when: download_result.changed

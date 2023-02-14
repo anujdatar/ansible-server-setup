@@ -1,0 +1,5 @@
+---
+- name: Upgrade installed package
+  apt:
+    upgrade: dist
+  become: true

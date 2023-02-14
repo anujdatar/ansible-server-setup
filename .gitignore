@@ -1,3 +1,7 @@
+# ansible inventory files
+# inventory*
+# hosts*
+
 # Compiled binary addons
 build/Release
 build/
@@ -30,3 +34,4 @@ auth/
 .c9/
 *.launch
 .settings/
+.kate-swp
