@@ -1,6 +1,6 @@
 # ansible inventory files
-inventory*
-hosts*
+# inventory*
+# hosts*
 
 # Compiled binary addons
 build/Release
