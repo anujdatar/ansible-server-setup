@@ -1,0 +1,7 @@
+- name: Update and install packages
+  hosts: other_server
+
+  roles:
+    - update
+    - upgrade
+    - install_base
