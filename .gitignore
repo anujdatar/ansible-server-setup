@@ -34,3 +34,4 @@ auth/
 .c9/
 *.launch
 .settings/
+.kate-swp
