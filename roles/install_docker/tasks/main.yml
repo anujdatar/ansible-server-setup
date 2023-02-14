@@ -1,9 +1,11 @@
 ---
-- set_fact:
+- name: Set docker arch if ARM64
+  set_fact:
     docker_arch: "arm64"
   when: ansible_architecture == "aarch64"
 
-- set_fact:
+- name: Set docker arch if AMD64
+  set_fact:
     docker_arch: "amd64"
   when: ansible_architecture == "x86_64"
 
