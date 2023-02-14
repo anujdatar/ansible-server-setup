@@ -1,4 +1,10 @@
 ---
-- name: reboot
+- name: Reboot host
   reboot:
   become: true
+
+- name: Wait for host to come back up
+  wait_for_connection:
+    connect_timeout: 5
+    sleep: 5
+    timeout: 300
