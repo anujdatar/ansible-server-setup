@@ -1,0 +1,15 @@
+- name: Install required packages
+  apt:
+    name:
+      - git
+      - vim
+      - htop
+      - software-properties-common
+      - python3-pip
+      - policykit-1
+      - members
+      - avahi-daemon
+      - lm-sensors
+      - iperf3
+    state: present
+  become: true
