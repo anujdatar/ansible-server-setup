@@ -12,5 +12,7 @@
       - avahi-daemon
       - lm-sensors
       - iperf3
+      - curl
+      - wget
     state: present
   become: true
