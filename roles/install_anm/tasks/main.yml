@@ -1,11 +1,70 @@
 ---
-- name: Download ANM install file
-  get_url:
-    url: https://raw.githubusercontent.com/anujdatar/anm/main/install.sh
-    dest: /tmp/anm_install.sh
-    mode: "0755"
-  register: download_result
+- name: Set ANM install path
+  set_fact:
+    anm_install_path: "/home/{{ ansible_user }}/.anm"
 
-- name: Install ANM
-  shell: /tmp/anm_install.sh
-  when: download_result.changed
+- name: Install required APT packages
+  apt:
+    name:
+      - curl
+      - wget
+      - git
+      - python3
+      - python3-pip
+    state: latest
+    update_cache: true
+  become: true
+
+- name: Installing pip packages
+  pip:
+    name:
+      - packaging
+      - urllib3
+
+- name: Clone ANM git repo
+  git:
+    repo: https://github.com/anujdatar/anm.git
+    dest: "{{ anm_install_path }}"
+    clone: yes
+    update: yes
+
+- name: Add ANM bin directory
+  file:
+    path: "{{ anm_install_path }}/bin"
+    state: directory
+
+- name: Add ANM executable symlink to bin
+  file:
+    src: "{{ anm_install_path }}/anm.sh"
+    dest: "{{ anm_install_path }}/bin/anm"
+    state: link
+
+- name: Add node install directory
+  file:
+    path: "{{ anm_install_path }}/versions/node"
+    state: directory
+
+- name: Add installed version tracking file
+  file:
+    path: "{{ anm_install_path }}/installed"
+    state: touch
+
+- name: Add active node version tracking file
+  file:
+    path: "{{ anm_install_path }}/active"
+    state: touch
+
+- name: Add install path to .bashrc
+  blockinfile:
+    dest: "/home/{{ ansible_user }}/.bashrc"
+    insertafter: EOF
+    state: present
+    marker: "# >>> {mark}: ANM block managed by Ansible"
+    content: |
+      if ! [[ "$PATH" =~ "{{ anm_install_path }}/bin" ]]; then
+      [ -d "{{ anm_install_path }}/bin" ] && export PATH="{{ anm_install_path }}/bin:$PATH"
+      fi
+      if ! [[ "$PATH" =~ "{{ anm_install_path }}/versions/current" ]]; then
+      [ -d "{{ anm_install_path }}/bin" ] && export PATH="{{ anm_install_path }}/versions/current:$PATH"
+      fi
+      if [ -d "{{ anm_install_path }}" ]; then export ANM_DIR="{{ anm_install_path }}"; fi
