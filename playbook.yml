@@ -7,5 +7,6 @@
     - upgrade
     - install_base
     - install_anm
+    - reboot
     - install_docker
     - reboot
