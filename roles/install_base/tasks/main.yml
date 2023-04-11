@@ -7,7 +7,10 @@
       - htop
       - software-properties-common
       - python3-pip
+      - python3-venv
+      - python3-virtualenv
       - policykit-1
+      - apparmor
       - members
       - avahi-daemon
       - lm-sensors
