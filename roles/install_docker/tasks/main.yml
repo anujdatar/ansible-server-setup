@@ -57,10 +57,6 @@
   tags:
     - docker
 
-- name: Install docker-compose
-  pip:
-    name: docker-compose
-
 - name: Adding user to docker group
   user:
     name: "{{ ansible_user }}"
