@@ -4,13 +4,15 @@
     name:
       - git
       - vim
+      - neovim
+      - zsh
       - htop
       - software-properties-common
       - python3-pip
       - python3-venv
       - python3-virtualenv
       - policykit-1
-      - apparmor
+      # - apparmor
       - members
       - avahi-daemon
       - lm-sensors
