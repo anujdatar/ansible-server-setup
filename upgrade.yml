@@ -1,0 +1,8 @@
+---
+- name: Upgrade and reboot
+  hosts: servers
+
+  roles:
+    - update
+    - upgrade
+    - reboot

@@ -1,0 +1,6 @@
+---
+- name: Just reboot all servers
+  hosts: servers
+
+  roles:
+    - reboot
